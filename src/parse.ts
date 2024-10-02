@@ -1,6 +1,7 @@
 import { parse } from "jsr:@std/yaml@1.0.5";
 import { z, ZodObject, type ZodTypeAny } from "npm:zod@3.23.8";
 import { MissingEnvVarError } from "./error/missingEnvVarError.ts";
+import type { z } from "zod";
 
 /* Types */
 
