@@ -1,5 +1,7 @@
 import { parse } from "jsr:@std/yaml@1.0.5";
 import { z, ZodObject, type ZodTypeAny } from "npm:zod@3.23.8";
+import { readFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 import { MissingEnvVarError } from "./error/missingEnvVarError.ts";
 
 /* Types */
@@ -25,7 +27,7 @@ interface DataObject {
  * @param filePath The path to the YAML file to be loaded.
  * @param schema Zod schema object used to validate the loaded and processed data.
  * @returns The validated data that conforms to the provided schema.
- * @throws {Deno.errors.NotFound} If the file is not found.
+ * @throws {NotFound} If the file is not found.
  * @throws {SyntaxError} If there's an issue parsing the YAM file.
  * @throws {MissingEnvVarError} If an environment variable is referenced but not set.
  * @throws {ZodError} If the file data doesn't conform to the schema.
@@ -34,8 +36,7 @@ export async function loadYamlAsync(
   filePath: string,
   schema: ZodObject<Record<string, ZodTypeAny>>,
 ): Promise<z.infer<typeof schema>> {
-  // Read and parse the YAML file
-  const file = await Deno.readTextFile(filePath);
+  const file = await readFile(filePath, "utf8");
   const data = parse(file) as DataObject;
 
   // Retrieve default values from the Zod schema
@@ -56,7 +57,7 @@ export async function loadYamlAsync(
  * @param filePath The path to the YAML file to be loaded.
  * @param schema Zod schema object used to validate the loaded and processed data.
  * @returns The validated data that conforms to the provided schema.
- * @throws {Deno.errors.NotFound} If the file is not found.
+ * @throws {NotFound} If the file is not found.
  * @throws {SyntaxError} If there's an issue parsing the YAM file.
  * @throws {MissingEnvVarError} If an environment variable is referenced but not set.
  * @throws {ZodError} If the file data doesn't conform to the schema.
@@ -66,7 +67,7 @@ export function loadYaml(
   schema: ZodObject<Record<string, ZodTypeAny>>,
 ): z.infer<typeof schema> {
   // Read and parse the YAML file
-  const file = Deno.readTextFileSync(filePath);
+  const file = readFileSync(filePath, "utf8");
   const data = parse(file) as DataObject;
 
   // Retrieve default values from the Zod schema

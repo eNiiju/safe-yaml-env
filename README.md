@@ -3,15 +3,10 @@
 Parse YAML files safely using Zod with environment variables and default values
 support.
 
+## Dependencies
+
 This library uses [@std/yaml](https://jsr.io/@std/yaml) for the YAML parsing and
 [Zod](https://zod.dev) for the schema validation.
-
-## Installation
-
-```bash
-# Deno
-deno install jsr:@niiju/safe-yaml-env
-```
 
 ## Usage
 
