@@ -1,0 +1,13 @@
+{
+  "tasks": {
+    "test": "deno test ./test/**/*.ts --allow-env --allow-write --allow-read",
+    "test-coverage": "deno test ./test/**/*.ts --allow-env --allow-write --allow-read --coverage",
+    "lint": "deno lint",
+    "fmt": "deno fmt",
+    "publish-dry": "deno publish --config jsr.json --dry-run --allow-dirty"
+  },
+  "imports": {
+    "@std/yaml": "jsr:@std/yaml@^1.0.5",
+    "zod": "npm:zod@^3.23.8"
+  }
+}

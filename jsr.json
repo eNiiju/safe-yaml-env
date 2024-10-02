@@ -1,0 +1,19 @@
+{
+  "name": "@niiju/safe-yaml-env",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./src/mod.ts"
+  },
+  "publish": {
+    "include": [
+      "CHANGELOG.md",
+      "README.md",
+      "LICENSE",
+      "src/**/*.ts",
+      "jsr.json"
+    ],
+    "exclude": [
+      "**/*.test.ts"
+    ]
+  }
+}
