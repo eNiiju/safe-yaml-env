@@ -2,7 +2,7 @@
   "name": "@niiju/safe-yaml-env",
   "version": "0.1.0",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/mod.ts"
   },
   "publish": {
     "include": [
