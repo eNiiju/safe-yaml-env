@@ -1,6 +1,7 @@
 import { parse } from "jsr:@std/yaml@1.0.5";
 import { ZodObject, type ZodTypeAny } from "npm:zod@3.23.8";
 import { MissingEnvVarError } from "./error/missingEnvVarError.ts";
+import type { z } from "zod";
 
 /* Types */
 
@@ -33,7 +34,7 @@ interface DataObject {
 export async function loadYamlAsync(
   filePath: string,
   schema: ZodObject<Record<string, ZodTypeAny>>,
-): Promise<unknown> {
+): Promise<z.infer<typeof schema>> {
   // Read and parse the YAML file
   const file = await Deno.readTextFile(filePath);
   const data = parse(file) as DataObject;
@@ -64,7 +65,7 @@ export async function loadYamlAsync(
 export function loadYaml(
   filePath: string,
   schema: ZodObject<Record<string, ZodTypeAny>>,
-): unknown {
+): z.infer<typeof schema> {
   // Read and parse the YAML file
   const file = Deno.readTextFileSync(filePath);
   const data = parse(file) as DataObject;
