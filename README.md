@@ -94,8 +94,11 @@ const schema = z.object({
   age: z.number(),
 }).strict();
 ```
+
 #### Type coercion
-Environment variables are always of type `string`. If you want to parse them as another type, you can use Zod's `coerce` as follows :
+
+Environment variables are always of type `string`. If you want to parse them as
+another type, you can use Zod's `coerce` as follows :
 
 ```typescript
 const schema = z.object({
@@ -104,7 +107,10 @@ const schema = z.object({
 }).strict();
 ```
 
-Now, if the `age` property is referenced from an environment variable inside the YAML file, the type will be converted from `string` to `number` (if possible), instead of throwing an error. 
+Now, if the `age` property is referenced from an environment variable inside the
+YAML file, the type will be converted from `string` to `number` (if possible),
+instead of throwing an error.
+
 ## Error Handling
 
 The following errors can be thrown:
