@@ -3,8 +3,6 @@
 Parse YAML files safely using Zod with environment variables and default values
 support.
 
-## Dependencies
-
 This library uses [@std/yaml](https://jsr.io/@std/yaml) for the YAML parsing and
 [Zod](https://zod.dev) for the schema validation.
 
@@ -65,7 +63,6 @@ age: 25
 ```
 
 ```typescript
-Deno.env.set("ENV_NAME", "Loris Ipsum"); // Example
 const data = loadYaml("./config.yaml", schema);
 console.log(data); // { name: 'Loris Ipsum', age: 25 }
 ```
@@ -97,13 +94,25 @@ const schema = z.object({
   age: z.number(),
 }).strict();
 ```
+#### Type coercion
+Environment variables are always of type `string`. If you want to parse them as another type, you can use Zod's `coerce` as follows :
 
+```typescript
+const schema = z.object({
+  name: z.string(),
+  age: z.coerce.number(), // This will try to convert the type to number
+}).strict();
+```
+
+Now, if the `age` property is referenced from an environment variable inside the YAML file, the type will be converted from `string` to `number` (if possible), instead of throwing an error. 
 ## Error Handling
 
 The following errors can be thrown:
 
 - `Deno.errors.NotFound`: Thrown if the YAML file is not found.
 - `SyntaxError`: Thrown if the YAML file is invalid.
+- `UnknownRuntimeError`: Thrown if the environment variables cannot be retrieved
+  in the current JavaScript runtime.
 - `MissingEnvVarError`: Thrown if an environment variable is referenced but not
   set.
 - `ZodError`: Thrown if the data doesn't conform to the Zod schema.
@@ -116,6 +125,8 @@ try {
     console.error("File not found");
   } else if (error instanceof SyntaxError) {
     console.error("Invalid YAML");
+  } else if (error instanceof UnknownRuntimeError) {
+    console.error("Unknown runtime error");
   } else if (error instanceof MissingEnvVarError) {
     console.error("Missing environment variable:", error.envVarKey);
   } else if (error instanceof ZodError) {

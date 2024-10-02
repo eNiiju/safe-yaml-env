@@ -3,6 +3,7 @@ import { z, ZodObject, type ZodTypeAny } from "npm:zod@3.23.8";
 import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { MissingEnvVarError } from "./error/missingEnvVarError.ts";
+import { getEnvVar } from "./utils.ts";
 
 /* Types */
 
@@ -29,6 +30,7 @@ interface DataObject {
  * @returns The validated data that conforms to the provided schema.
  * @throws {NotFound} If the file is not found.
  * @throws {SyntaxError} If there's an issue parsing the YAM file.
+ * @throws {UnkownRuntimeError} If the environment variables cannot be retrieved in the current JavaScript runtime.
  * @throws {MissingEnvVarError} If an environment variable is referenced but not set.
  * @throws {ZodError} If the file data doesn't conform to the schema.
  */
@@ -59,6 +61,7 @@ export async function loadYamlAsync(
  * @returns The validated data that conforms to the provided schema.
  * @throws {NotFound} If the file is not found.
  * @throws {SyntaxError} If there's an issue parsing the YAM file.
+ * @throws {UnkownRuntimeError} If the environment variables cannot be retrieved in the current JavaScript runtime.
  * @throws {MissingEnvVarError} If an environment variable is referenced but not set.
  * @throws {ZodError} If the file data doesn't conform to the schema.
  */
@@ -111,6 +114,7 @@ export function getDefaultValues(
  * @param defaults Default values for environment variables, used if no default
  * value is provided with the environment variable in the data.
  * @returns The processed data with environment variables replaced.
+ * @throws {UnkownRuntimeError} If the environment variables cannot be retrieved in the current JavaScript runtime.
  * @throws {MissingEnvVarError} If an environment variable is referenced but not set.
  */
 export function replaceEnvVars(
@@ -128,7 +132,7 @@ export function replaceEnvVars(
         return match.slice(1);
       }
 
-      const envValue = Deno.env.get(envKey);
+      const envValue = getEnvVar(envKey);
       const defaultEnvValueFromSchema = defaults
         ? defaults.get(envKey)
         : undefined;
