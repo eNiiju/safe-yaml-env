@@ -4,9 +4,9 @@ import {
   assertThrows,
 } from "jsr:@std/assert@1.0.6";
 import { z, ZodError } from "npm:zod@3.23.8";
-import { loadYaml, loadYamlAsync } from "../src/parse.ts";
-import { MissingEnvVarError } from "../src/error/missingEnvVarError.ts";
-import { FileNotFoundError } from "../src/error/fileNotFound.ts";
+import { loadYaml, loadYamlAsync } from "../src/loadYaml.ts";
+import { MissingEnvVarError } from "../src/errors/missingEnvVarError.ts";
+import { FileNotFoundError } from "../src/errors/fileNotFound.ts";
 
 Deno.test("loadYaml should load and validates YAML file", async () => {
   const testSchema = z.object({

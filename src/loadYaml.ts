@@ -3,8 +3,8 @@ import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { parse } from "jsr:@std/yaml@1.0.5";
 import { z, ZodObject, type ZodTypeAny } from "npm:zod@3.23.8";
-import { MissingEnvVarError } from "./error/missingEnvVarError.ts";
-import { FileNotFoundError } from "./error/fileNotFound.ts";
+import { MissingEnvVarError } from "./errors/missingEnvVarError.ts";
+import { FileNotFoundError } from "./errors/fileNotFound.ts";
 
 /* Types */
 

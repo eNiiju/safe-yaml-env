@@ -16,7 +16,7 @@ export class FileNotFoundError extends Error {
    */
   constructor(filePath: string, message?: string) {
     super(message || `File not found: "${filePath}"`);
-    this.name = "MissingEnvVarError";
+    this.name = "FileNotFoundError";
     this.filePath = filePath;
 
     // This line is necessary for proper prototype chain setup in TypeScript
