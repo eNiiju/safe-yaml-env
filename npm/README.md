@@ -125,6 +125,9 @@ The following errors can be thrown:
 - `ZodError`: Thrown if the data doesn't conform to the Zod schema.
 
 ```typescript
+import { FileNotFoundError, MissingEnvVarError } from "safe-yaml-env";
+import { ZodError } from "zod";
+
 try {
   loadYaml("./config.yaml", schema);
 } catch (error) {
