@@ -3,8 +3,11 @@
 Parse YAML files safely using Zod with environment variables and default values
 support.
 
-This library uses [@std/yaml](https://jsr.io/@std/yaml) for the YAML parsing and
-[Zod](https://zod.dev) for the schema validation.
+This library uses [jsr:@std/yaml](https://jsr.io/@std/yaml) for the YAML parsing
+and [Zod](https://zod.dev) for the schema validation.
+
+_Note: This library is written using Deno and is also published on
+[JSR](https://jsr.io/@niiju/safe-yaml-env)._
 
 ## Usage
 
@@ -17,8 +20,8 @@ age: 25
 ```
 
 ```typescript
-import { z } from "npm:zod";
-import { loadYamlAsync } from "jsr:@niiju/safe-yaml-env";
+import { z } from "zod";
+import { loadYamlAsync } from "safe-yaml-env";
 
 const schema = z.object({
   name: z.string(),
@@ -38,8 +41,8 @@ age: 25
 ```
 
 ```typescript
-import { z } from "npm:zod";
-import { loadYaml } from "jsr:@niiju/safe-yaml-env";
+import { z } from "zod";
+import { loadYaml } from "safe-yaml-env";
 
 const schema = z.object({
   name: z.string(),
