@@ -2,7 +2,7 @@ import process from "node:process";
 import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { parse } from "jsr:@std/yaml@1.0.5";
-import { z, ZodObject, type ZodTypeAny } from "npm:zod@3.23.8";
+import type { ZodObject, ZodTypeAny, infer as Infer } from "npm:zod@3.23.8";
 import { MissingEnvVarError } from "./errors/missingEnvVarError.ts";
 import { FileNotFoundError } from "./errors/fileNotFound.ts";
 
@@ -37,7 +37,7 @@ interface DataObject {
 export async function loadYamlAsync(
   filePath: string,
   schema: ZodObject<Record<string, ZodTypeAny>>,
-): Promise<z.infer<typeof schema>> {
+): Promise<Infer<typeof schema>> {
   let file: string;
 
   try {
@@ -74,7 +74,7 @@ export async function loadYamlAsync(
 export function loadYaml(
   filePath: string,
   schema: ZodObject<Record<string, ZodTypeAny>>,
-): z.infer<typeof schema> {
+): Infer<typeof schema> {
   // Read and parse the YAML file
   const file = readFileSync(filePath, "utf8");
   const data = parse(file) as DataObject;
