@@ -1,6 +1,6 @@
 {
   "name": "@niiju/safe-yaml-env",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "tasks": {
     "test": "deno test ./test/**/*.ts --allow-env --allow-write --allow-read",
     "test-coverage": "deno test ./test/**/*.ts --allow-env --allow-write --allow-read --coverage=cov/",
