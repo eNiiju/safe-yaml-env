@@ -4,7 +4,7 @@ import { parse } from "jsr:@std/yaml@1.0.5";
 import type { infer as Infer, ZodObject, ZodTypeAny } from "npm:zod@3.23.8";
 import { FileNotFoundError } from "../common/errors/fileNotFoundError.ts";
 import { replaceEnvVars } from "../common/utils.ts";
-import { DataObject } from "../common/types.ts";
+import type { DataObject } from "../common/types.ts";
 import { getDefaultValues } from "./lib/utils.ts";
 
 /**

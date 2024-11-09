@@ -1,5 +1,5 @@
 import type { ZodObject, ZodTypeAny } from "npm:zod@3.23.8";
-import { Data } from "../../common/types.ts";
+import type { Data } from "../../common/types.ts";
 
 /**
  * Retrieves default values from a Zod schema object.
