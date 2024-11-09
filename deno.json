@@ -1,13 +1,14 @@
 {
   "tasks": {
     "test": "deno test ./test/**/*.ts --allow-env --allow-write --allow-read",
-    "test-coverage": "deno test ./test/**/*.ts --allow-env --allow-write --allow-read --coverage",
+    "test-coverage": "deno test ./test/**/*.ts --allow-env --allow-write --allow-read --coverage=cov/",
     "lint": "deno lint",
     "fmt": "deno fmt",
+    "fmt-check": "deno fmt --check",
     "jsr-publish-dry": "deno publish --config jsr.json --dry-run --allow-dirty",
     "jsr-publish": "deno publish --config jsr.json",
-    "npm-buid": "deno run -A npm/build.ts",
-    "npm-publish": "deno run dnt && cd dist_npm/ && npm publish"
+    "npm-build": "deno run -A npm/build.ts",
+    "npm-publish": "deno task dnt && cd npm/dist/ && npm publish"
   },
   "imports": {
     "@deno/dnt": "jsr:@deno/dnt@^0.41.3",

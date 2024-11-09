@@ -5,15 +5,52 @@ on:
       - main
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      id-token: write
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Publish package
-        run: npx jsr publish
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x # Run with latest stable Deno.
+
+      - name: Check formatting
+        run: deno task fmt-check
+
+      - name: Lint
+        run: deno task lint
+
+      - name: Run tests
+        run: deno task test-coverage
+
+      # This generates a report from the collected coverage when running the tests. It is
+      # stored as a .lcov file which integrates well with services such as Codecov, Coveralls and Travis CI.
+      - name: Generate coverage report
+        run: deno coverage --lcov cov/ > cov.lcov
+
+      - name: Dry publish to JSR
+        run: deno task jsr-publish-dry
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x # Run with latest stable Deno.
+          
+      - name: Publish to JSR
+        run: deno task jsr-publish
+        env:
+          DENO_AUTH_TOKEN: ${{ secrets.DENO_AUTH_TOKEN }}
+
+      - name: Publish to NPM
+        run: deno task npm-build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
