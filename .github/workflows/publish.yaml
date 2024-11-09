@@ -5,7 +5,10 @@ on:
       - main
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yml
   publish:
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -23,6 +26,13 @@ jobs:
         run: npx jsr publish
 
       - name: Publish to NPM
-        run: deno task npm-publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+          EMAIL: ${{ secrets.NPM_EMAIL }}
+        run: |
+          deno task npm-build
+          cd npm/dist/
+          echo _auth=$ACCESS_TOKEN >> .npmrc
+          echo email=$EMAIL >> .npmrc
+          echo always-auth=true >> .npmrc
+          npm publish
