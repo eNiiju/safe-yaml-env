@@ -1,10 +1,10 @@
-import { build, emptyDir } from "@deno/dnt";
+import { build, emptyDir } from "jsr:@deno/dnt";
 
-const VERSION = JSON.parse(Deno.readTextFileSync("./jsr.json")).version;
+const VERSION = JSON.parse(Deno.readTextFileSync("./deno.json")).version;
 const OUT_DIR = "./npm/dist";
 
 if (!VERSION) {
-  throw new Error("Version not found in jsr.json");
+  throw new Error("Version not found in deno.json");
 }
 
 console.log(`Building npm package version ${VERSION}...`);
@@ -23,7 +23,7 @@ await build({
     name: "safe-yaml-env",
     version: VERSION,
     description:
-      "Parse YAML files safely using Zod with environment variables and default values support.",
+      "Parse YAML files safely with schema validation, supporting environment variables and default values.",
     license: "MIT",
     repository: {
       type: "git",
