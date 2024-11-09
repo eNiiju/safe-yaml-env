@@ -1,5 +1,5 @@
 import { assertEquals } from "jsr:@std/assert@1.0.6";
-import { MissingEnvVarError } from "../src/errors/missingEnvVarError.ts";
+import { MissingEnvVarError } from "../../src/common/errors/missingEnvVarError.ts";
 
 Deno.test("MissingEnvVarError should have a name property", () => {
   const error = new MissingEnvVarError("TEST_VAR");

@@ -1,7 +1,7 @@
 import { build, emptyDir } from "@deno/dnt";
 
 const VERSION = JSON.parse(Deno.readTextFileSync("./jsr.json")).version;
-const OUT_DIR = "./dist_npm";
+const OUT_DIR = "./npm/dist";
 
 if (!VERSION) {
   throw new Error("Version not found in jsr.json");
@@ -36,7 +36,7 @@ await build({
   postBuild() {
     // steps to run after building and before running the tests
     Deno.copyFileSync("LICENSE", `${OUT_DIR}/LICENSE`);
-    Deno.copyFileSync("npm/README.md", `${OUT_DIR}/README.md`);
+    Deno.copyFileSync("./README.md", `${OUT_DIR}/README.md`);
 
     console.log(`NPM package built successfully inside ${OUT_DIR}!`);
   },

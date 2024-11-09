@@ -17,8 +17,8 @@ age: 25
 ```
 
 ```typescript
-import { z } from "npm:zod";
-import { loadYamlAsync } from "jsr:@niiju/safe-yaml-env";
+import { z } from "zod";
+import { loadYamlAsync } from "@niiju/safe-yaml-env";
 
 const schema = z.object({
   name: z.string(),
@@ -38,8 +38,8 @@ age: 25
 ```
 
 ```typescript
-import { z } from "npm:zod";
-import { loadYaml } from "jsr:@niiju/safe-yaml-env";
+import { z } from "zod";
+import { loadYaml } from "@niiju/safe-yaml-env";
 
 const schema = z.object({
   name: z.string(),
@@ -122,8 +122,8 @@ The following errors can be thrown:
 - `ZodError`: Thrown if the data doesn't conform to the Zod schema.
 
 ```typescript
-import { FileNotFoundError, MissingEnvVarError } from "jsr:@niiju/safe-yaml-env";
-import { ZodError } from "npm:zod";
+import { FileNotFoundError, MissingEnvVarError } from "@niiju/safe-yaml-env";
+import { ZodError } from "zod";
 
 try {
   loadYaml("./config.yaml", schema);

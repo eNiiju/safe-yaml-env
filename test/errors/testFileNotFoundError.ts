@@ -1,5 +1,5 @@
 import { assertEquals } from "jsr:@std/assert@1.0.6";
-import { FileNotFoundError } from "../src/errors/fileNotFound.ts";
+import { FileNotFoundError } from "../../src/common/errors/fileNotFoundError.ts";
 
 Deno.test("FileNotFoundError should have a name property", () => {
   const error = new FileNotFoundError("./config.yaml");

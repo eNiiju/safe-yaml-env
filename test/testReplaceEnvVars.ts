@@ -1,6 +1,6 @@
 import { assertEquals, assertThrows } from "jsr:@std/assert@1.0.6";
-import { replaceEnvVars } from "../src/loadYaml.ts";
-import { MissingEnvVarError } from "../src/errors/missingEnvVarError.ts";
+import { replaceEnvVars } from "../src/common/utils.ts";
+import { MissingEnvVarError } from "../src/common/errors/missingEnvVarError.ts";
 
 Deno.test("replaceEnvVars should replace environment variables in strings", () => {
   Deno.env.set("TEST_VAR", "test_value");
