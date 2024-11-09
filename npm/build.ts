@@ -36,7 +36,7 @@ await build({
   postBuild() {
     // steps to run after building and before running the tests
     Deno.copyFileSync("LICENSE", `${OUT_DIR}/LICENSE`);
-    Deno.copyFileSync("./README.md", `${OUT_DIR}/README.md`);
+    Deno.copyFileSync("./npm/README.md", `${OUT_DIR}/README.md`);
 
     console.log(`NPM package built successfully inside ${OUT_DIR}!`);
   },
