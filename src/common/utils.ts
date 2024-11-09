@@ -1,5 +1,5 @@
 import process from "node:process";
-import { Data } from "./types.ts";
+import type { Data } from "./types.ts";
 import { MissingEnvVarError } from "./errors/missingEnvVarError.ts";
 
 /**

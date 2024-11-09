@@ -1,12 +1,14 @@
 {
+  "name": "@niiju/safe-yaml-env",
+  "version": "1.0.0",
   "tasks": {
     "test": "deno test ./test/**/*.ts --allow-env --allow-write --allow-read",
     "test-coverage": "deno test ./test/**/*.ts --allow-env --allow-write --allow-read --coverage=cov/",
     "lint": "deno lint",
     "fmt": "deno fmt",
     "fmt-check": "deno fmt --check",
-    "jsr-publish-dry": "deno publish --config jsr.json --dry-run --allow-dirty",
-    "jsr-publish": "deno publish --config jsr.json",
+    "jsr-publish-dry": "deno publish --dry-run --allow-dirty",
+    "jsr-publish": "deno publish",
     "npm-build": "deno run -A npm/build.ts",
     "npm-publish": "deno task npm-build && cd npm/dist/ && npm publish"
   },
@@ -14,5 +16,21 @@
     "@deno/dnt": "jsr:@deno/dnt@^0.41.3",
     "@std/yaml": "jsr:@std/yaml@^1.0.5",
     "zod": "npm:zod@^3.23.8"
+  },
+  "exports": {
+    ".": "./src/mod.ts",
+    "./zod": "./src/zod/mod.ts"
+  },
+  "publish": {
+    "include": [
+      "CHANGELOG.md",
+      "README.md",
+      "LICENSE",
+      "src/**/*.ts",
+      "jsr.json"
+    ],
+    "exclude": [
+      "**/*.test.ts"
+    ]
   }
 }
