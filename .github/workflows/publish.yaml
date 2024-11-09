@@ -36,6 +36,9 @@ jobs:
   publish:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -46,11 +49,9 @@ jobs:
           deno-version: v2.x # Run with latest stable Deno.
           
       - name: Publish to JSR
-        run: deno task jsr-publish
-        env:
-          DENO_AUTH_TOKEN: ${{ secrets.DENO_AUTH_TOKEN }}
+        run: npx jsr publish
 
       - name: Publish to NPM
         run: deno task npm-build
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
