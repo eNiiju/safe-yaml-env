@@ -8,7 +8,7 @@
     "jsr-publish-dry": "deno publish --config jsr.json --dry-run --allow-dirty",
     "jsr-publish": "deno publish --config jsr.json",
     "npm-build": "deno run -A npm/build.ts",
-    "npm-publish": "deno task dnt && cd npm/dist/ && npm publish"
+    "npm-publish": "deno task npm-build && cd npm/dist/ && npm publish"
   },
   "imports": {
     "@deno/dnt": "jsr:@deno/dnt@^0.41.3",
