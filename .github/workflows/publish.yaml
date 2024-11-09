@@ -1,4 +1,4 @@
-name: Publish
+name: Publish package
 on:
   push:
     branches:
@@ -7,13 +7,22 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
       id-token: write
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Publish package
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x # Run with latest stable Deno.
+
+      - name: Publish to JSR
         run: npx jsr publish
+
+      - name: Publish to NPM
+        run: deno task npm-publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}

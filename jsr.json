@@ -1,8 +1,9 @@
 {
   "name": "@niiju/safe-yaml-env",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "exports": {
-    ".": "./src/mod.ts"
+    ".": "./src/mod.ts",
+    "./zod": "./src/zod/mod.ts"
   },
   "publish": {
     "include": [

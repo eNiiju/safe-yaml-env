@@ -1,10 +1,19 @@
 import { build, emptyDir } from "@deno/dnt";
 
-await emptyDir("./npm");
+const VERSION = JSON.parse(Deno.readTextFileSync("./jsr.json")).version;
+const OUT_DIR = "./npm/dist";
+
+if (!VERSION) {
+  throw new Error("Version not found in jsr.json");
+}
+
+console.log(`Building npm package version ${VERSION}...`);
+
+await emptyDir(OUT_DIR);
 
 await build({
   entryPoints: ["./src/mod.ts"],
-  outDir: "./npm",
+  outDir: OUT_DIR,
   shims: {
     // see JS docs for overview and more options
     deno: true,
@@ -12,7 +21,7 @@ await build({
   package: {
     // package.json properties
     name: "safe-yaml-env",
-    version: Deno.args[0],
+    version: VERSION,
     description:
       "Parse YAML files safely using Zod with environment variables and default values support.",
     license: "MIT",
@@ -26,7 +35,9 @@ await build({
   },
   postBuild() {
     // steps to run after building and before running the tests
-    Deno.copyFileSync("LICENSE", "npm/LICENSE");
-    Deno.copyFileSync("README.md", "npm/README.md");
+    Deno.copyFileSync("LICENSE", `${OUT_DIR}/LICENSE`);
+    Deno.copyFileSync("./README.md", `${OUT_DIR}/README.md`);
+
+    console.log(`NPM package built successfully inside ${OUT_DIR}!`);
   },
 });
