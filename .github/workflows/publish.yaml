@@ -32,7 +32,7 @@ jobs:
         run: |
           deno task npm-build
           cd npm/dist/
-          echo _auth=$ACCESS_TOKEN >> .npmrc
+          echo //registry.npmjs.org/:_auth=$ACCESS_TOKEN >> .npmrc
           echo email=$EMAIL >> .npmrc
           echo always-auth=true >> .npmrc
           npm publish
